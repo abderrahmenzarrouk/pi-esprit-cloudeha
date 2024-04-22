@@ -75,7 +75,39 @@ public class userService implements UserDetailsService {
     }
 
 
+    public void updateuser(User user, MultipartFile file){
+        User userExists =  userRepository.findById(user.getId());
+        if (!file.isEmpty()){
+            String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+            System.out.println(fileName);
 
+            if(fileName.contains(".."))
+            {
+                System.out.println("le fichier n'est pas valide");
+            }
+            try {
+                user.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        if(user.getTel()==null){
+            user.setTel(userExists.getTel());
+        }
+        if(user.getNom()==null){user.setNom(userExists.getNom());}
+        if(user.getPrenom()==null) {
+            user.setPrenom(userExists.getPrenom());
+        }
+        if(user.getEmail()==null){user.setEmail(userExists.getEmail());}
+        if(user.getAge()==null){user.setAge(userExists.getAge());}
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedpassword = passwordEncoder.encode(userExists.getPassword());
+        user.setMDP(encodedpassword);
+        user.setTDCEchouees(0);
+
+        userRepository.save(user);
+    }
     public void registerUserFromOAuth2(OAuth2AuthenticationToken authenticationToken) {
         OAuth2User oauth2User = authenticationToken.getPrincipal();
         String email = oauth2User.getAttribute("email");

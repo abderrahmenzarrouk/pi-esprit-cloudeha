@@ -14,6 +14,7 @@ import lombok.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "User")
@@ -43,12 +44,15 @@ public class User implements UserDetails{
     private String tel;
     @Column(columnDefinition = "MEDIUMBLOB")
     private String image;
+    @Enumerated(EnumType.STRING)
+    private Specialite typespecialite;
+
     @OneToOne
     private Roles userRole;
     private boolean locked = false;
     private boolean enabled = false;
 
-    public User(String nom, String prenom, String email, String age, String MDP,  Roles userRole, String tel) {
+    public User(String nom, String prenom, String email, String age, String MDP,  Roles userRole, String tel,String specialite) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -56,6 +60,7 @@ public class User implements UserDetails{
         this.MDP = MDP;
         this.userRole = userRole;
         this.tel = tel;
+        this.typespecialite = Specialite.valueOf(specialite);
 
     }
 

@@ -27,15 +27,26 @@ public class RegistrationController {
                            @RequestParam("age") String age,
                            @RequestParam("tel") String tel,
                            @RequestParam("role") int  roleId,
+                           @RequestParam("specialite") String  specialite,
                            @RequestParam("file") MultipartFile file){
         Roles role = roleR.findById(roleId).get();
-        RegistrationRequest request = new RegistrationRequest(prenom, nom, email, MDP, age, tel, role);
+        RegistrationRequest request = new RegistrationRequest(prenom, nom, email, MDP, age, tel, role,specialite);
         System.out.println("request");
         System.out.println(request);
         return registrationService.register(request , file);
     }
     @PostMapping(path = "/tuteur")
-    public String registertuteur(@RequestBody RegistrationRequest request, @RequestParam("file") MultipartFile file){
+    public String registertuteur(@RequestParam("prenom") String prenom,
+                                 @RequestParam("nom") String nom,
+                                 @RequestParam("email") String email,
+                                 @RequestParam("MDP") String MDP,
+                                 @RequestParam("age") String age,
+                                 @RequestParam("tel") String tel,
+                                 @RequestParam("role") int  roleId,
+                                 @RequestParam("specialite") String  specialite,
+                                 @RequestParam("file") MultipartFile file){
+        Roles role = roleR.findById(roleId).get();
+        RegistrationRequest request = new RegistrationRequest(prenom, nom, email, MDP, age, tel, role,specialite);
         return registrationService.registertuteur(request , file );
     }
     @GetMapping(path = "confirm")

@@ -34,7 +34,8 @@ public class RegistrationService {
                 request.getAge(),
                 request.getMDP(),
                 request.getRole(),
-                request.getTel()
+                request.getTel(),
+                request.getSpecialite()
         ),  file);
         String link = "http://localhost:8083/api/v1/auth/registration/confirm?token="+token;
         emailSender.send(request.getEmail(), buildEmail(request.getNom(), link));
@@ -52,7 +53,8 @@ public class RegistrationService {
                 request.getAge(),
                 request.getMDP(),
                 request.getRole(),
-                request.getTel()
+                request.getTel(),
+                request.getSpecialite()
         ),  file);
         String link = "http://localhost:8083/api/v1/auth/registration/confirm?token="+token;
         emailSender.send(request.getEmail(), buildEmailtuteur(request.getPrenom(), request.getMDP(), link));

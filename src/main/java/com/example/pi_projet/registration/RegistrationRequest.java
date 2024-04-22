@@ -20,5 +20,6 @@ public class RegistrationRequest {
     private final String age;
     private final String tel;
     private final Roles role;
+    private final String specialite;
 
 }

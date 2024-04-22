@@ -23,10 +23,14 @@ public interface userRepository  extends JpaRepository<User, Long> {
     @Override
     List<User> findAll();
 
-    List<User> findByUserRole_Id(int roleId);
+
+    List<User> findByUserRoleId(int id);
+
     @Transactional
     @Modifying
     @Query("UPDATE User a " +
             "SET a.enabled = TRUE WHERE a.email = ?1")
     int enableUser(String email);
+
+    User findById(long id);
 }
