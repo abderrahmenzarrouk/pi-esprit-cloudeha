@@ -39,16 +39,24 @@ public class User implements UserDetails{
     private String MDP;
     @Column(name = "TDCEchouées")
     private int TDCEchouees;
+
+    @Column(name = "mdpoubliée", columnDefinition = "int default 0")
+    private int mdpoubliée ;
     @Column(name = "telephone")
     private String tel;
     @Column(columnDefinition = "MEDIUMBLOB")
     private String image;
+
+    @Enumerated(EnumType.STRING)
+    private Specialite typespecialite;
     @OneToOne
     private Roles userRole;
     private boolean locked = false;
     private boolean enabled = false;
 
-    public User(String nom, String prenom, String email, String age, String MDP,  Roles userRole, String tel) {
+
+
+    public User(String nom, String prenom, String email, String age, String MDP,  Roles userRole, String tel,String specialite) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -56,6 +64,9 @@ public class User implements UserDetails{
         this.MDP = MDP;
         this.userRole = userRole;
         this.tel = tel;
+
+        this.typespecialite = Specialite.valueOf(specialite);
+
 
     }
 
