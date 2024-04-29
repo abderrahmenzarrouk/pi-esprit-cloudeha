@@ -1,5 +1,6 @@
 package com.example.pi_projet.controllers;
 
+import com.example.pi_projet.entities.Reclamation;
 import com.example.pi_projet.entities.Roles;
 import com.example.pi_projet.entities.User;
 import com.example.pi_projet.registration.RegistrationRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/v1/user")
@@ -71,8 +73,17 @@ public class userController {
         }
         u.setUserRole(u.getUserRole());
         u.setTypespecialite(u.getTypespecialite());
+        u.setMdpoubliée(0);
         userRepository.save(u);
         return u;
     }
+
+    @PostMapping("/changer-mdp")
+    public User changermdp(@RequestBody Map<String, String> requestBody
+                            ){
+        return userService.changepassword(requestBody.get("email"),requestBody.get("newmdp"),requestBody.get("oldmdp"));
+
+    }
+
 
 }

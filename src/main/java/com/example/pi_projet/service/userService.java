@@ -1,5 +1,6 @@
 package com.example.pi_projet.service;
 
+import com.example.pi_projet.email.EmailSender;
 import com.example.pi_projet.entities.User;
 import com.example.pi_projet.registration.token.ConfirmationToken;
 import com.example.pi_projet.registration.token.ConfirmationTokenService;
@@ -26,7 +27,7 @@ import java.util.UUID;
 public class userService implements UserDetailsService {
 
     private final userRepository userRepository;
-
+    private final EmailSender emailSender;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
     private final static String user_not_found_MSG = "utilisateur avec l email %s introuvable ";
@@ -127,6 +128,109 @@ public class userService implements UserDetailsService {
 
         // User is now registered or updated in the database
     }
+
+
+    public User forgotpassword(String email){
+        var user = userRepository.findByEmail(email).get();
+        String randomPassword = PasswordGenerator.generateRandomPassword(5);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedrandompassword = passwordEncoder.encode(randomPassword);
+        System.out.println(randomPassword);
+        user.setMDP(encodedrandompassword);
+        user.setMdpoubliée(1);
+        userRepository.save(user);
+        emailSender.send(email, buildEmail(user.getPrenom(), randomPassword));
+        return user;
+    }
+    public User changepassword(String email , String newpass , String oldpass){
+        var user = userRepository.findByEmail(email).get();
+        String motdepasse = user.getMDP();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        System.out.println(motdepasse);
+
+            if(passwordEncoder.matches(oldpass, motdepasse) ){
+
+                String encodedrandompassword = passwordEncoder.encode(newpass);
+                user.setMDP(encodedrandompassword);
+                user.setMdpoubliée(0);
+                userRepository.save(user);
+                return user;
+            } else {
+                throw new IllegalArgumentException("Incorrect old password");
+            }
+
+    }
+    private String buildEmail(String name, String MDP) {
+        return  "<table class=\"body-wrap\" style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; width: 100%; background-color: #f6f6f6; margin: 0;\" bgcolor=\"#f6f6f6\">\n" +
+                "    <tbody>\n" +
+                "        <tr style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;\">\n" +
+                "            <td style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0;\" valign=\"top\"></td>\n" +
+                "            <td class=\"container\" width=\"600\" style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; display: block !important; max-width: 600px !important; clear: both !important; margin: 0 auto;\"\n" +
+                "                valign=\"top\">\n" +
+                "                <div class=\"content\" style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; max-width: 600px; display: block; margin: 0 auto; padding: 20px;\">\n" +
+                "                    <table class=\"main\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; border-radius: 3px; background-color: #fff; margin: 0; border: 1px solid #e9e9e9;\"\n" +
+                "                        bgcolor=\"#fff\">\n" +
+                "                        <tbody>\n" +
+                "                            <tr style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;\">\n" +
+                "                                <td class=\"\" style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 16px; vertical-align: top; color: #fff; font-weight: 500; text-align: center; border-radius: 3px 3px 0 0; background-color: #38414a; margin: 0; padding: 20px;\"\n" +
+                "                                    align=\"center\" bgcolor=\"#71b6f9\" valign=\"top\">\n" +
+                "                                    <a href=\"#\" style=\"font-size:32px;color:#fff;\"> Mot de passe oubliée ?</a> <br>\n" +
+                "                                    <span style=\"margin-top: 10px;display: block;\">Cher/Chère "+name+"</span>\n" +
+                "                                </td>\n" +
+                "                            </tr>\n" +
+                "                            <tr style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;\">\n" +
+                "                                <td class=\"content-wrap\" style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 20px;\" valign=\"top\">\n" +
+                "                                    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;\">\n" +
+                "                                        <tbody>\n" +
+                "                                            <tr style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;\">\n" +
+                "                                                <td class=\"content-block\" style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;\" valign=\"top\">\n" +
+                "                                                   Votre nouveaux mot de passe est : "+MDP+" \n" +
+                "                                \n" +
+                "                                                </td>\n" +
+                "                                            </tr>\n" +
+                "                                            <tr style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;\">\n" +
+                "                                                <td class=\"content-block\" style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;\" valign=\"top\">\n" +
+                "                                                   N'oubliée pas de le changer dès votre primère connection\n" +
+                "                                                </td>\n" +
+                "                                            </tr>\n" +
+                "                                            <tr style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;\">\n" +
+                "                                                <td class=\"content-block\" style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;\" valign=\"top\">\n" +
+                "                                                   " +
+                "                                    </a>\n" +
+                "                                                </td>\n" +
+                "                                            </tr>\n" +
+                "                                            <tr style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;\">\n" +
+                "                                                <td class=\"content-block\" style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;\" valign=\"top\">\n" +
+                "                                                    \n" +
+                "                                                </td>\n" +
+                "                                            </tr>\n" +
+                "                                        </tbody>\n" +
+                "                                    </table>\n" +
+                "                                </td>\n" +
+                "                            </tr>\n" +
+                "                        </tbody>\n" +
+                "                    </table>\n" +
+                "                    <div class=\"footer\" style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; width: 100%; clear: both; color: #999; margin: 0; padding: 20px;\">\n" +
+                "                        <table width=\"100%\" style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;\">\n" +
+                "                            <tbody>\n" +
+                "                                <tr style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;\">\n" +
+                "                                    <td class=\"aligncenter content-block\" style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 12px; vertical-align: top; color: #999; text-align: center; margin: 0; padding: 0 0 20px;\" align=\"center\" valign=\"top\"><a href=\"#\" style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 12px; color: #999; text-decoration: underline; margin: 0;\">Unsubscribe</a> from these alerts.\n" +
+                "                                    </td>\n" +
+                "                                </tr>\n" +
+                "                            </tbody>\n" +
+                "                        </table>\n" +
+                "                    </div>\n" +
+                "                </div>\n" +
+                "            </td>\n" +
+                "            <td style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0;\" valign=\"top\"></td>\n" +
+                "        </tr>\n" +
+                "    </tbody>\n" +
+                "</table>";
+    }
+
+
+
 
 
 

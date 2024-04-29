@@ -29,6 +29,7 @@ public class AuthenticationService {
             );
             var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
             user.setTDCEchouees(0);
+
             userRepository.save(user);
 //            String telephone = "+216" + user.getTel();
 //            SmsRequest s  = new SmsRequest(telephone,"heelo");

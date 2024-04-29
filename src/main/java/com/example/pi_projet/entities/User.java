@@ -40,6 +40,8 @@ public class User implements UserDetails{
     private String MDP;
     @Column(name = "TDCEchouées")
     private int TDCEchouees;
+    @Column(name = "mdpoubliée", columnDefinition = "int default 0")
+    private int mdpoubliée ;
     @Column(name = "telephone")
     private String tel;
     @Column(columnDefinition = "MEDIUMBLOB")
