@@ -34,5 +34,7 @@ public class ReservationEvent implements Serializable {
         dateRes = new Date();
     }
     @ManyToOne
+    @JoinColumn(name = "evenement_id")
+
     Evenement evenement;
 }

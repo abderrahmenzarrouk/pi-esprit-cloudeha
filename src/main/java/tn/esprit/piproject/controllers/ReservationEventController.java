@@ -31,13 +31,15 @@ public class ReservationEventController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @PostMapping("/")
-    public ResponseEntity<ReservationEvent> saveRes(@RequestBody ReservationEvent res){
-        ReservationEvent reservationEvent= iReservationEventService.addRes(res);
-        if(reservationEvent!=null)
+    public ResponseEntity<ReservationEvent> saveRes(@RequestBody Long evenementId){
+        ReservationEvent reservationEvent = iReservationEventService.addRes(evenementId);
+        if (reservationEvent != null) {
             return new ResponseEntity<>(reservationEvent, HttpStatus.CREATED);
-        return new ResponseEntity<>(reservationEvent, HttpStatus.NOT_FOUND);
-
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
+
     @PutMapping("/")
     public ResponseEntity<ReservationEvent> modifyRes(@RequestBody ReservationEvent res){
         ReservationEvent reservationEvent= iReservationEventService.updateRes(res);
@@ -50,4 +52,14 @@ public class ReservationEventController {
     public void removeRes(@PathVariable("id") long id){
         iReservationEventService.deleteRes(id);
     }
+    @GetMapping("/event/{eventId}") // Correction ici : utiliser le bon nom de variable d'ID
+    public ResponseEntity<List<ReservationEvent>> findReservationsForEvent(@PathVariable("eventId") long eventId) {
+        List<ReservationEvent> reservations = iReservationEventService.getReservationsForEvent(eventId);
+        if (!reservations.isEmpty()) {
+            return new ResponseEntity<>(reservations, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
+
