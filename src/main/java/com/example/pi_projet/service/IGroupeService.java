@@ -25,7 +25,7 @@ public interface IGroupeService {
 
     // Groupe AssignUserToGroupeByInvitation(Long idInvitation);
 
-    Groupe AssignUserTOGroupe(Long idUser, Long idGroupe, Long idinvi);
+    Groupe AssignUserTOGroupe(Long idinvi);
 
     Set<Groupe> retrieveGroupeToUser(Long idUser);
 
@@ -38,4 +38,6 @@ public interface IGroupeService {
 
     @Scheduled(cron = "0 * * * * * ")
     void calculateTotalScore();
+
+    List<User> getOtherGroupMembers(long userId);
 }

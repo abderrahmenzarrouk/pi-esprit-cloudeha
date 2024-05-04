@@ -1,5 +1,6 @@
 package com.example.pi_projet.controllers;
 
+import com.example.pi_projet.entities.User;
 import com.example.pi_projet.service.IGroupeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -76,9 +77,15 @@ public class GroupeController {
         return listeGroupe;
     }
 
-    @PostMapping("/AssignUserTOGroupe/{idUser}/{idGroupe}/{idinvi}")
-    public Groupe AssignUserTOGroupe(@PathVariable Long idUser, @PathVariable Long idGroupe, @PathVariable Long idinvi){
-        return groupeService.AssignUserTOGroupe(idUser,idGroupe,idinvi);
+    @PostMapping("/AssignUserTOGroupe/{idinvi}")
+    public Groupe AssignUserTOGroupe( @PathVariable Long idinvi){
+        return groupeService.AssignUserTOGroupe(idinvi);
+    }
+
+    @GetMapping("/getotherMembers/{idUser}")
+    public List<User> listeMembers (@PathVariable Long idUser) {
+        List<User> listeGroupe = (List<User>) groupeService.getOtherGroupMembers(idUser);
+        return listeGroupe;
     }
 
 }

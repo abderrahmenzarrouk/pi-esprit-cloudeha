@@ -69,31 +69,38 @@ public class GroupeImplementation implements IGroupeService{
     }
 
     @Override
-    public Groupe AssignUserTOGroupe(Long idUser, Long idGroupe, Long idinvi) { //hne bech nzidodha ken l user admin
-        User user = userRepository.findById(idUser).get();
+    public Groupe AssignUserTOGroupe(Long idInvi) {
+        // User user = userRepository.findUserById(idUser);
+        Invitation invitation = invitationRepository.findInvitationByIdInvitation(idInvi);
+        Long idGroupe = invitation.getGroupeInvitation().getIdGroupe();
+        Long idUtilisateur = invitation.getUserInvitation().getId();
         Groupe groupe = groupeRepository.findGroupesByIdGroupe(idGroupe);
-        Invitation invitation = invitationRepository.findInvitationByIdInvitation(idinvi);
-        Optional<User> userOptional = groupe.getUserSet().stream().findFirst();
-        User user1 = userOptional.orElse(null);
+        User user = userRepository.findById(idUtilisateur).get();
+        System.out.println("uuuuuuuuuuuuuuuuuuusssssssssssssssseeeeeeeeeeeeeeerrrrrrrrrrr"+user);
+        System.out.println("invitationnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"+invitation);
+        System.out.println("Groupeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"+groupe);
+        if (user != null && invitation != null) {
 
 
-        if (user != null && groupe != null && !(groupe.getUserSet().contains(user)) && groupe.getEtat() < 7 ) {
+            System.out.println(groupe);
+            if (groupe != null && !groupe.getUserSet().contains(user) && groupe.getEtat() < 7) {
+                // Ajouter l'utilisateur au groupe
+                user.getGroupeSet().add(groupe);
+                groupe.getUserSet().add(user);
+                groupe.setEtat(groupe.getEtat() + 1);
 
-            user.getGroupeSet().add(groupe);
-            groupe.getUserSet().add(user);
-            groupe.setEtat(groupe.getEtat()+1);
+                // Enregistrer les modifications
+                userRepository.save(user);
+                groupeRepository.save(groupe);
+                invitationRepository.delete(invitation);
 
-            userRepository.save(user);
-            groupeRepository.save(groupe);
-            invitationRepository.delete(invitation);
-            return groupe;
+                return groupe;
+            } else {
+                throw new RuntimeException("Khnissi try again mfs");
+            }
+        } else {
+            throw new RuntimeException("User or invitation not found");
         }
-
-
-
-
-        else
-            throw new RuntimeException("Khnissi try again mfs");
     }
 
     @Override
@@ -112,7 +119,21 @@ public class GroupeImplementation implements IGroupeService{
         Groupe groupe = groupeRepository.findGroupesByIdGroupe(idGroupe);
         return (long) groupe.getNom_Tuteur();
     }
+    public Groupe AssignUTG(Long idUser, Long idGroupe) {
+        User user = userRepository.findById(idUser).get();
+        Groupe groupe = groupeRepository.findGroupesByIdGroupe(idGroupe);
 
+        if (user != null && groupe != null) {
+            user.getGroupeSet().add(groupe);
+            groupe.getUserSet().add(user);
+
+            userRepository.save(user);
+            groupeRepository.save(groupe);
+            return groupe;
+        }
+        else
+            throw new RuntimeException("Khnissi try again mfs");
+    }
     @Transactional
     //  @Scheduled(cron = "0 * * * * * ")
     @Override
@@ -144,7 +165,7 @@ public class GroupeImplementation implements IGroupeService{
                     }
                     if (tuteurs.size() >= 1) {
                         User tuteur = tuteurs.get(0);
-                        this.AssignUserTOGroupe(tuteur.getId(), groupe.getIdGroupe(),null);
+                        this.AssignUTG(tuteur.getId(), groupe.getIdGroupe());
                     }
                 }
                 else {
@@ -203,8 +224,29 @@ public class GroupeImplementation implements IGroupeService{
         log.info(String.valueOf(totalScores));
     }
 
+    @Override
+    public List<User> getOtherGroupMembers(long userId) {
+        User user = userRepository.findById(userId);
+        if (user == null) {
+            // Gérer le cas où l'utilisateur n'existe pas
+            return null;
+        }
 
+        // Récupérer le groupe de l'utilisateur
+        Groupe userGroup = user.getGroupeSet().stream().findFirst().orElse(null);
+        if (userGroup == null) {
+            // Gérer le cas où l'utilisateur n'est pas membre d'un groupe
+            return null;
+        }
 
+        // Récupérer tous les membres du groupe
+        List<User> groupMembers = userGroup.getUserSet().stream().toList();
+
+        // Filtrer les membres pour exclure l'utilisateur actuel
+        return groupMembers.stream()
+                .filter(member -> member.getId() != userId)
+                .collect(Collectors.toList());
+    }
 
 
 }

@@ -24,7 +24,7 @@ public class Post implements Serializable {
     private String prenom;
     private String Contenu;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnore
     private User user_post;
 

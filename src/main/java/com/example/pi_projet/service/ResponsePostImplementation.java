@@ -29,6 +29,7 @@ public class ResponsePostImplementation implements IResponsePostService{
         responsePost1.setNom(user.getNom());
         responsePost1.setPrenom(user.getPrenom());
         responsePost1.setContenu(responsePost);
+        responsePost1.setUser_ResponsePost(user);
         return responsPostRepository.save(responsePost1);
     }
 

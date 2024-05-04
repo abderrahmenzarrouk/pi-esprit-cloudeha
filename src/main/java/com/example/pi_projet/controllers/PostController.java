@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/Post")
-@CrossOrigin
+@CrossOrigin("*")
 public class PostController {
     IPostService postService;
     @PostMapping("/addPost/{contenu}/{idGroupe}/{idUser}")
