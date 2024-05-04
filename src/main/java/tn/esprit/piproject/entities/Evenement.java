@@ -27,12 +27,8 @@ public class Evenement implements Serializable {
     LocalDateTime date_fin;
     long placesDispo;
     long placesRestants;
-    @OneToMany(mappedBy = "evenement",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "evenement",cascade = CascadeType.ALL,orphanRemoval = true)
     Set<ReservationEvent> reservationEvents;
-
-    @Lob
-    @Column(columnDefinition = "LONGBLOB")
-
-    byte[] image; // Stocke l'image en tant que tableau de bytes
+    private String image;
 
 }
