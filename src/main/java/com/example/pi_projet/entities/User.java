@@ -11,9 +11,9 @@ import lombok.*;
 
 
 //import javax.persistence.*;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
 
 @Entity
 @Table(name = "User")
@@ -39,6 +39,10 @@ public class User implements UserDetails{
     private String MDP;
     @Column(name = "TDCEchouées")
     private int TDCEchouees;
+    @Column(name = "NombreRéclamationEducative",columnDefinition = "int default 0")
+    private int nbrrec;
+    @Column(name = "NombreRéclamationTechnique",columnDefinition = "int default 0")
+    private int nbrrectec;
 
     @Column(name = "mdpoubliée", columnDefinition = "int default 0")
     private int mdpoubliée ;
@@ -46,6 +50,17 @@ public class User implements UserDetails{
     private String tel;
     @Column(columnDefinition = "MEDIUMBLOB")
     private String image;
+
+    @Temporal(TemporalType.DATE)
+    @Column(columnDefinition = "DATE DEFAULT CURRENT_DATE")
+    private LocalDate derniercnx ;
+
+    @Temporal(TemporalType.DATE)
+    @Column(columnDefinition = "DATE DEFAULT CURRENT_DATE")
+    private LocalDate dateregistration ;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Groupe> groupeSet;
 
     @Enumerated(EnumType.STRING)
     private Specialite typespecialite;
@@ -106,4 +121,6 @@ public class User implements UserDetails{
     public boolean isEnabled() {
         return enabled;
     }
+
+
 }

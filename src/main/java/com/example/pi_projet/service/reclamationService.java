@@ -34,6 +34,7 @@ public class reclamationService {
             Random random = new Random();
             String tuteuremail = tuteurUsers.get(random.nextInt(tuteurUsers.size())).getEmail();
             Optional<User> tuteurchoisit = userRepository.findByEmail(tuteuremail);
+            tuteurchoisit.get().setNbrrectec(tuteurchoisit.get().getNbrrectec()+1);
             emailSender.send(tuteuremail, buildEmail(tuteurchoisit.get().getPrenom(),reclamation.getDescription()));
             reclamation.setTuteurchoisit(tuteuremail);
 
@@ -43,6 +44,7 @@ public class reclamationService {
             System.out.println(reclamation.getTuteurchoisit());
             String tuteuremail = reclamation.getTuteurchoisit();
             Optional<User> tuteurchoisit = userRepository.findByEmail(tuteuremail);
+            tuteurchoisit.get().setNbrrec(tuteurchoisit.get().getNbrrec()+1);
             emailSender.send(tuteuremail, buildEmaileducative(tuteurchoisit.get().getPrenom(),reclamation.getDescription()));
 
         }

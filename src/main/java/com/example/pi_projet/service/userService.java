@@ -18,6 +18,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.UUID;
@@ -60,6 +61,9 @@ public class userService implements UserDetailsService {
       // String encodedpassword = bCryptPasswordEncoder.encode(user.getPassword());
        user.setMDP(encodedpassword);
        user.setTDCEchouees(0);
+       user.setNbrrec(0);
+       user.setDerniercnx(LocalDate.now());
+       user.setDateregistration(LocalDate.now());
        userRepository.save(user);
         String token = UUID.randomUUID().toString();
         ConfirmationToken confirmationToken = new ConfirmationToken(

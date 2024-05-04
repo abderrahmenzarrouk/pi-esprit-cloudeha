@@ -12,6 +12,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -29,7 +31,7 @@ public class AuthenticationService {
             );
             var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
             user.setTDCEchouees(0);
-
+            user.setDerniercnx(LocalDate.now());
             userRepository.save(user);
 //            String telephone = "+216" + user.getTel();
 //            SmsRequest s  = new SmsRequest(telephone,"heelo");
