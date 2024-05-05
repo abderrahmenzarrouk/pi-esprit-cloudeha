@@ -1,11 +1,11 @@
-package tn.esprit.piproject.services;
+package com.example.pi_projet.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import tn.esprit.piproject.entities.Attachement;
-import tn.esprit.piproject.repositories.IAttachementRepository;
+import com.example.pi_projet.entities.Attachement;
+import com.example.pi_projet.repositories.IAttachementRepository;
 
 @Service
 

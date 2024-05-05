@@ -1,18 +1,18 @@
-package tn.esprit.piproject.controllers;
+package com.example.pi_projet.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.piproject.entities.Evenement;
-import tn.esprit.piproject.entities.ReservationEvent;
-import tn.esprit.piproject.services.IReservationEventService;
+import com.example.pi_projet.entities.ReservationEvent;
+import com.example.pi_projet.service.IReservationEventService;
 
 import java.util.List;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("resEvents")
+@CrossOrigin("*")
 public class ReservationEventController {
     private IReservationEventService iReservationEventService;
     @GetMapping("/")
@@ -62,4 +62,5 @@ public class ReservationEventController {
         }
     }
 }
+
 

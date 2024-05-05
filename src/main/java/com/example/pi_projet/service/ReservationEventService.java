@@ -1,13 +1,14 @@
-package tn.esprit.piproject.services;
+package com.example.pi_projet.service;
 
+import com.example.pi_projet.entities.User;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tn.esprit.piproject.entities.Evenement;
-import tn.esprit.piproject.entities.ReservationEvent;
-import tn.esprit.piproject.repositories.IEvenementRepository;
-import tn.esprit.piproject.repositories.IReservationEventRepository;
+import com.example.pi_projet.entities.Evenement;
+import com.example.pi_projet.entities.ReservationEvent;
+import com.example.pi_projet.repositories.IEvenementRepository;
+import com.example.pi_projet.repositories.IReservationEventRepository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -15,6 +16,9 @@ import java.util.List;
 public class ReservationEventService implements IReservationEventService{
     private IReservationEventRepository iReservationEventRepository;
     private IEvenementRepository iEvenementRepository;
+    @Autowired
+    private userService userService;
+
     @Override
     public List<ReservationEvent> getAllRes() {
         return iReservationEventRepository.findAll();

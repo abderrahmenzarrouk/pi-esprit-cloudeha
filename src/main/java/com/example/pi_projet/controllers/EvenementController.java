@@ -1,13 +1,13 @@
-package tn.esprit.piproject.controllers;
+package com.example.pi_projet.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.piproject.entities.Evenement;
-import tn.esprit.piproject.repositories.IReservationEventRepository;
-import tn.esprit.piproject.services.IEvenementSerivce; // J'ai ajusté le nom du service
+import com.example.pi_projet.entities.Evenement;
+import com.example.pi_projet.repositories.IReservationEventRepository;
+import com.example.pi_projet.service.IEvenementSerivce; // J'ai ajusté le nom du service
 
 import java.util.List;
 

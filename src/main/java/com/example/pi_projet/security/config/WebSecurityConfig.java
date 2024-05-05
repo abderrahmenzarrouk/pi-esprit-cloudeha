@@ -19,6 +19,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -33,13 +34,22 @@ public class WebSecurityConfig  {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
+
         http .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.OPTIONS, "/**")
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .requestMatchers(
+                        new AntPathRequestMatcher("/api/v*/auth/**"),
+                       // new AntPathRequestMatcher("/back/**"),
+                       //new AntPathRequestMatcher("/front/**"),
+                       new AntPathRequestMatcher("/upload/**"),
+                      new AntPathRequestMatcher("/download/**"),
+                        new AntPathRequestMatcher("https://www.boredapi.com/api/activity")
+
+                        )
                 .permitAll()
-                .requestMatchers("/api/v*/auth/**")
-                .permitAll()
+
                 .anyRequest()
                 .authenticated()
                 .and()
