@@ -1,4 +1,4 @@
-package tn.esprit.piproject.controllers;
+package com.example.pi_projet.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -9,14 +9,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import tn.esprit.piproject.dto.ResponseData;
-import tn.esprit.piproject.entities.Attachement;
-import tn.esprit.piproject.services.AttachementService;
+import com.example.pi_projet.dto.ResponseData;
+import com.example.pi_projet.entities.Attachement;
+import com.example.pi_projet.service.AttachementService;
 
 @RestController
-
+@CrossOrigin("*")
 public class AttachmentController {
     @Autowired
+
     private AttachementService attachmentService;
 
     @PostMapping("/upload")//(@RequestParam("file")MultipartFile[]files)

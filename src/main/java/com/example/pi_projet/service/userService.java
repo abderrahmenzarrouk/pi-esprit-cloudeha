@@ -165,6 +165,7 @@ public class userService implements UserDetailsService {
             }
 
     }
+
     private String buildEmail(String name, String MDP) {
         return  "<table class=\"body-wrap\" style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; width: 100%; background-color: #f6f6f6; margin: 0;\" bgcolor=\"#f6f6f6\">\n" +
                 "    <tbody>\n" +
@@ -232,6 +233,7 @@ public class userService implements UserDetailsService {
                 "    </tbody>\n" +
                 "</table>";
     }
+
 
 
 

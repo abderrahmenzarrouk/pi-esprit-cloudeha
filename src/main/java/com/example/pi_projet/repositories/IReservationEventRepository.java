@@ -1,11 +1,11 @@
-package tn.esprit.piproject.repositories;
+package com.example.pi_projet.repositories;
 
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import tn.esprit.piproject.entities.ReservationEvent;
+import com.example.pi_projet.entities.ReservationEvent;
 
 import java.util.List;
 

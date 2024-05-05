@@ -1,4 +1,4 @@
-package tn.esprit.piproject.dto;
+package com.example.pi_projet.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
