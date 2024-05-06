@@ -69,6 +69,8 @@ public class User implements UserDetails{
     private boolean locked = false;
     private boolean enabled = false;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<items> item;
 
 
     public User(String nom, String prenom, String email, String age, String MDP,  Roles userRole, String tel,String specialite) {
