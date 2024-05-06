@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("events")
 @CrossOrigin("*")
 public class EvenementController {
-    private IEvenementSerivce iEvenementSerivce; // J'ai ajusté le nom du service
+    private IEvenementSerivce iEvenementSerivce;
     private IReservationEventRepository reservationEventRepository;
 
     @GetMapping("/")
