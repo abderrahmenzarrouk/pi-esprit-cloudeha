@@ -44,6 +44,7 @@ public class WebSecurityConfig  {
                        // new AntPathRequestMatcher("/back/**"),
                        //new AntPathRequestMatcher("/front/**"),
                        new AntPathRequestMatcher("/upload/**"),
+                        new AntPathRequestMatcher("/eligibilite/**"),
                       new AntPathRequestMatcher("/download/**"),
                         new AntPathRequestMatcher("https://www.boredapi.com/api/activity")
 

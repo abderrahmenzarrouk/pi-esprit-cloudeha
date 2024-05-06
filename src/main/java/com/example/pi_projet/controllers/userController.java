@@ -88,11 +88,11 @@ public class userController {
 
     }
 
-
+/*
     @GetMapping("/acheter/{id}/{nbr}/{iditem}")
     public void acheteritem(@PathVariable int  id,@PathVariable int  nbr,@PathVariable int  iditem){
         userService.acheteritem(nbr,id,iditem);
     }
-
+*/
 
 }

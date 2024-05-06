@@ -1,11 +1,9 @@
 package com.example.pi_projet.entities;
 
+import com.example.pi_projet.dto.GroupeDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.Year;
@@ -15,6 +13,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Groupe implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,6 +52,10 @@ public class Groupe implements Serializable {
     @OneToMany(mappedBy = "groupePosts")
     @JsonIgnore
     private Set<Post> posts;
-
+    @OneToOne(mappedBy = "groupe")
+    Eligibilite eligibilite;
+public Groupe toEntity(GroupeDto groupeDto){
+    return Groupe.builder().Nom_Groupe(groupeDto.getNom_Groupe()).Sujet(groupeDto.getSujet()).build();
+}
 
 }

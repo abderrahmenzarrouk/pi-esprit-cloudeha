@@ -45,9 +45,14 @@ public class RegistrationController {
                                  @RequestParam("role") int  roleId,
                                  @RequestParam("specialite") String  specialite,
                                  @RequestParam("file") MultipartFile file){
-        Roles role = roleR.findById(roleId).get();
-        RegistrationRequest request = new RegistrationRequest(prenom, nom, email, MDP, age, tel, role,specialite);
-        return registrationService.registertuteur(request , file );
+        try {
+            Roles role = roleR.findById(roleId).get();
+            RegistrationRequest request = new RegistrationRequest(prenom, nom, email, MDP, age, tel, role, specialite);
+            return registrationService.registertuteur(request, file);
+        }
+        catch (Exception e) {
+            return "Une erreur s'est produite : " + e.getMessage();
+        }
     }
     @GetMapping(path = "confirm")
     public String confirm(@RequestParam("token") String token) {
