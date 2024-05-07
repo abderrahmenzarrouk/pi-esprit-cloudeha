@@ -1,9 +1,9 @@
-package tn.esprit.piproject.services;
+package com.esprit.piproject.services;
 
+import com.esprit.piproject.entities.Evenement;
+import com.esprit.piproject.repositories.IEvenementRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import tn.esprit.piproject.entities.Evenement;
-import tn.esprit.piproject.repositories.IEvenementRepository;
 
 import java.util.List;
 

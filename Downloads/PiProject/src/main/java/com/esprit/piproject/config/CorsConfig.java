@@ -1,4 +1,4 @@
-package tn.esprit.piproject.config;
+package com.esprit.piproject.config;
 
 
 import org.springframework.context.annotation.Configuration;

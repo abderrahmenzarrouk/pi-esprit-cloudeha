@@ -1,10 +1,9 @@
-package tn.esprit.piproject.services;
+package com.esprit.piproject.services;
 
+import com.esprit.piproject.entities.ReservationEvent;
+import com.esprit.piproject.repositories.IReservationEventRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import tn.esprit.piproject.entities.Evenement;
-import tn.esprit.piproject.entities.ReservationEvent;
-import tn.esprit.piproject.repositories.IReservationEventRepository;
 
 import java.util.List;
 

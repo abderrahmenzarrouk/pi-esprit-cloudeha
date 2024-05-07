@@ -1,13 +1,13 @@
-package tn.esprit.piproject.services;
+package com.esprit.piproject.services;
 
+import com.esprit.piproject.entities.Publication;
+import com.esprit.piproject.repositories.ICommentaireRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tn.esprit.piproject.entities.Commentaire;
-import tn.esprit.piproject.entities.Publication;
-import tn.esprit.piproject.repositories.ICommentaireRepository;
-import tn.esprit.piproject.repositories.IPublicationRepository;
+import com.esprit.piproject.entities.Commentaire;
+import com.esprit.piproject.repositories.IPublicationRepository;
 
 import java.util.Date;
 import java.util.List;

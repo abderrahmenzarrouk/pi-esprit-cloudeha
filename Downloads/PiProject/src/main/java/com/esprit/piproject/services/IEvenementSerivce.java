@@ -1,6 +1,6 @@
-package tn.esprit.piproject.services;
+package com.esprit.piproject.services;
 
-import tn.esprit.piproject.entities.Evenement;
+import com.esprit.piproject.entities.Evenement;
 
 import java.util.List;
 

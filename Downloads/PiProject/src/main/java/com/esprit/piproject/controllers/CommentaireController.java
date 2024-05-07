@@ -1,12 +1,11 @@
-package tn.esprit.piproject.controllers;
+package com.esprit.piproject.controllers;
 
-import jakarta.persistence.EntityNotFoundException;
+import com.esprit.piproject.entities.Commentaire;
+import com.esprit.piproject.services.ICommentaireService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.piproject.entities.Commentaire;
-import tn.esprit.piproject.services.ICommentaireService;
 
 import java.util.List;
 import java.util.Map;

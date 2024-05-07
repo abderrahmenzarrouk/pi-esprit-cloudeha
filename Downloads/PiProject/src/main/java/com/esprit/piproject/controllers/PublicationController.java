@@ -1,13 +1,12 @@
-package tn.esprit.piproject.controllers;
+package com.esprit.piproject.controllers;
 
+import com.esprit.piproject.entities.Publication;
+import com.esprit.piproject.services.IPublicationService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import tn.esprit.piproject.entities.Publication;
-import tn.esprit.piproject.services.IPublicationService;
 
 import java.util.List;
 

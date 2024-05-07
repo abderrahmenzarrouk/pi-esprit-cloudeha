@@ -1,4 +1,4 @@
-package tn.esprit.piproject.entities;
+package com.esprit.piproject.entities;
 
 import jakarta.persistence.*;
 import lombok.*;

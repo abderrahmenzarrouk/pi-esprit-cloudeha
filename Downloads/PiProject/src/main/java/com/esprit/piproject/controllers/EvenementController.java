@@ -1,14 +1,12 @@
-package tn.esprit.piproject.controllers;
+package com.esprit.piproject.controllers;
 
-import jdk.jfr.Event;
+import com.esprit.piproject.services.IEvenementSerivce;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.piproject.entities.Evenement;
-import tn.esprit.piproject.services.IEvenementSerivce;
+import com.esprit.piproject.entities.Evenement;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

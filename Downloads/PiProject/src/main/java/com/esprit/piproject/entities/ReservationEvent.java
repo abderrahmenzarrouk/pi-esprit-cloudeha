@@ -1,4 +1,4 @@
-package tn.esprit.piproject.entities;
+package com.esprit.piproject.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,20 +16,23 @@ import java.util.Date;
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @EqualsAndHashCode
 @ToString
-public class Commentaire implements Serializable {
+public class ReservationEvent implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateRes;
 
-    String contenu;
+    @PrePersist
+    protected void onCreate() {
+        dateRes = new Date();
+    }
 
-    int likes;
-
-    Date dateCommentaire;
-
-    private String postedBy;
-
+    @PreUpdate
+    protected void onUpdate() {
+        dateRes = new Date();
+    }
     @ManyToOne
-    @JoinColumn(name = "publication_id", nullable = false)
-    Publication publication;
+    Evenement evenement;
 }

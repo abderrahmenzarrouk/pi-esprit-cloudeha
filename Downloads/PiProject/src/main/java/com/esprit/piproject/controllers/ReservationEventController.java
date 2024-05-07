@@ -1,12 +1,11 @@
-package tn.esprit.piproject.controllers;
+package com.esprit.piproject.controllers;
 
+import com.esprit.piproject.entities.ReservationEvent;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.piproject.entities.Evenement;
-import tn.esprit.piproject.entities.ReservationEvent;
-import tn.esprit.piproject.services.IReservationEventService;
+import com.esprit.piproject.services.IReservationEventService;
 
 import java.util.List;
 

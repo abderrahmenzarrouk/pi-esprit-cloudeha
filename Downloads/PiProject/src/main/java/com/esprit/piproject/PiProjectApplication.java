@@ -1,4 +1,4 @@
-package tn.esprit.piproject;
+package com.esprit.piproject;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

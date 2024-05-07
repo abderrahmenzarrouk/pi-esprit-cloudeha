@@ -1,7 +1,7 @@
-package tn.esprit.piproject.repositories;
+package com.esprit.piproject.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import tn.esprit.piproject.entities.Evenement;
+import com.esprit.piproject.entities.Evenement;
 
 public interface IEvenementRepository extends JpaRepository<Evenement,Long> {
 }

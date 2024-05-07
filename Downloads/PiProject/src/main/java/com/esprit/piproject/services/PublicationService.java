@@ -1,10 +1,10 @@
-package tn.esprit.piproject.services;
+package com.esprit.piproject.services;
 
+import com.esprit.piproject.entities.Publication;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import tn.esprit.piproject.entities.Publication;
-import tn.esprit.piproject.repositories.IPublicationRepository;
+import com.esprit.piproject.repositories.IPublicationRepository;
 
 import java.util.Date;
 import java.util.List;

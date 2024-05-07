@@ -1,7 +1,7 @@
-package tn.esprit.piproject.repositories;
+package com.esprit.piproject.repositories;
 
+import com.esprit.piproject.entities.Publication;
 import org.springframework.data.jpa.repository.JpaRepository;
-import tn.esprit.piproject.entities.Publication;
 
 import java.util.List;
 

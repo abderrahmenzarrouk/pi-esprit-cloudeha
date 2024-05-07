@@ -1,6 +1,6 @@
-package tn.esprit.piproject.services;
+package com.esprit.piproject.services;
 
-import tn.esprit.piproject.entities.Publication;
+import com.esprit.piproject.entities.Publication;
 
 import java.util.List;
 
