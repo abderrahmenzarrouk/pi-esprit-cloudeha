@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.Year;
+import java.util.List;
 import java.util.Set;
 @Entity
 @Getter
@@ -53,6 +54,10 @@ public class Groupe implements Serializable {
     @OneToMany(mappedBy = "groupePosts")
     @JsonIgnore
     private Set<Post> posts;
+
+    @OneToMany(mappedBy = "groupe",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Reservation> reservations;
 
 
 }
