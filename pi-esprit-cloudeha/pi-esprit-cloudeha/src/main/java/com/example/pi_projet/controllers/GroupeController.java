@@ -34,6 +34,11 @@ public class GroupeController {
         return  grp;
     }
 
+    @GetMapping("/getrole/{iduser}")
+    public String recuperRole(@PathVariable Long iduser){
+        return  groupeService.recperRoleUSer(iduser);
+    }
+
     @PostMapping("/addGroupe/{idUser}")
     public Groupe addGroupe(@RequestBody Groupe groupe, @PathVariable Long idUser) {
         return groupeService.addGroupe(groupe,idUser);

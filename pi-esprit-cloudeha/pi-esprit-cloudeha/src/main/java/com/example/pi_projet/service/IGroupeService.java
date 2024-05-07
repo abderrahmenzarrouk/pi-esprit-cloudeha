@@ -15,6 +15,8 @@ public interface IGroupeService {
     Groupe updateGroupe (Groupe groupe);
     void deleteGroupe (Long idGroupe);
 
+    String recperRoleUSer (Long idUSer);
+
     Groupe recupererGroupe (Long idGroupe);
 
     List<Groupe> recupererAllGroupes ();

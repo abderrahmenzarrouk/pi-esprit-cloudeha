@@ -38,6 +38,10 @@ public class RendezVousController {
     public RendezVous AssignRdvToGroupe(@PathVariable Long idRdv , @PathVariable Long idGroupe){
         return  rendezVousService.AssignRdvToGroupe(idRdv,idGroupe);
     }
+    @PostMapping("addPoints/{idRdv}/{points}")
+    public RendezVous assignPoints (@PathVariable Long idRdv, @PathVariable Float points){
+        return rendezVousService.update_rdv_points(idRdv,points);
+    }
 
     @PostMapping( "/accepterRdv/{idRdv}")
     public void accepterrdv (@PathVariable Long idRdv){

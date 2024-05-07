@@ -33,4 +33,5 @@ public interface userRepository  extends JpaRepository<User, Long> {
     int enableUser(String email);
 
     User findById(long id);
+    User findUserById(long id);
 }

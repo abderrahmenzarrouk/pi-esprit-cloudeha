@@ -33,6 +33,7 @@ public class RendezVousImplementation implements IRendezVousService {
         Groupe groupe = groupeRepository.findGroupesByIdGroupe(idGroupe);
         rendezVous.setGroupe(groupe);
         rendezVous.setEtat("Confirmer");
+        this.mettreAJourEtatRendezVousExpiré();
         return rendezVousRepository.save(rendezVous);
     }
 
@@ -143,9 +144,16 @@ public class RendezVousImplementation implements IRendezVousService {
 
         for (RendezVous rendezVous : rendezVousList) {
             if (rendezVous.getDate().isBefore(today)) {
-                rendezVousRepository.delete(rendezVous);
+                rendezVous.setEtat("Expiré");
             }
         }
+    }
+
+    @Override
+    public RendezVous update_rdv_points(Long idRdv, Float points) {
+        RendezVous rdv = rendezVousRepository.findByIdRdv(idRdv);
+        rdv.setPoints(points);
+        return rendezVousRepository.save(rdv);
     }
 
 

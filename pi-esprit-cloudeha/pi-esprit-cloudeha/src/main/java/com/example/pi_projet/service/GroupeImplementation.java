@@ -28,14 +28,16 @@ public class GroupeImplementation implements IGroupeService{
     public Groupe addGroupe(Groupe groupe, Long idUser) {
         List<Groupe> groupeList = groupeRepository.findAll();
         User user =  userRepository.findById(idUser).get();
+        Long idGrp = groupe.getIdGroupe();
         groupe.setUserSet(Collections.singleton(user));
         user.setGroupeSet(Collections.singleton(groupe));
         groupe.setNom_Tuteur((int)user.getId());
         groupe.setStatut("ENCORE DES PLACES");
         groupe.setEtat(1);
-        //groupe.setStatut((User) user.getUserRole().getRole().toString()); //bech tekhou mtaa l user li conn
-        return groupeRepository.save(groupe);
 
+        //groupe.setStatut((User) user.getUserRole().getRole().toString()); //bech tekhou mtaa l user li conn
+        groupeRepository.save(groupe);
+        return  this.AssignUTG(idUser,idGrp);
     }
 
     @Override
@@ -55,6 +57,12 @@ public class GroupeImplementation implements IGroupeService{
     @Override
     public void deleteGroupe(Long idGroupe) {
         groupeRepository.deleteById(idGroupe);
+    }
+
+    @Override
+    public String recperRoleUSer(Long idUSer) {
+        User user = userRepository.findUserById(idUSer);
+        return user.getUserRole().getRole().name();
     }
 
     @Override
@@ -132,9 +140,11 @@ public class GroupeImplementation implements IGroupeService{
     }
     public Groupe AssignUTG(Long idUser, Long idGroupe) {
         User user = userRepository.findById(idUser).get();
+        List<User> userList = userRepository.findAll();
         Groupe groupe = groupeRepository.findGroupesByIdGroupe(idGroupe);
-
-        if (user != null && groupe != null) {
+        System.out.println("hedddddhhhhhhhhhhaaaaaaaaa id grp"+user);
+        System.out.println("hedddddhhhhhhhhhhaaaaaaaaa id grp"+groupe);
+        if ( userList.contains(user)) {
             user.getGroupeSet().add(groupe);
             groupe.getUserSet().add(user);
 

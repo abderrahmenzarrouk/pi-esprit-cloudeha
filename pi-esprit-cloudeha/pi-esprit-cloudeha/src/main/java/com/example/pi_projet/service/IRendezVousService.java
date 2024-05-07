@@ -31,4 +31,6 @@ public interface IRendezVousService {
     void refuserPresence(Long idRdv);
 
     void mettreAJourEtatRendezVousExpiré();
+
+    RendezVous update_rdv_points(Long idRdv, Float points);
 }
