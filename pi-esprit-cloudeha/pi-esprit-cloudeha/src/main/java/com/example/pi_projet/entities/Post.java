@@ -24,7 +24,7 @@ public class Post implements Serializable {
     private String prenom;
     private String Contenu;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonIgnore
     private User user_post;
 
@@ -32,7 +32,7 @@ public class Post implements Serializable {
     @JsonIgnore
     private Groupe groupePosts;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<ResponsePost> responsePostSet;
 

@@ -102,14 +102,16 @@ public class GroupeImplementation implements IGroupeService{
                 userRepository.save(user);
                 groupeRepository.save(groupe);
                 invitationRepository.delete(invitation);
-
+                this.AssignTuteurToGroupe();
                 return groupe;
+
             } else {
                 throw new RuntimeException("Khnissi try again mfs");
             }
         } else {
             throw new RuntimeException("User or invitation not found");
         }
+
     }
 
     @Override
@@ -143,7 +145,7 @@ public class GroupeImplementation implements IGroupeService{
         else
             throw new RuntimeException("Khnissi try again mfs");
     }
-    @Transactional
+   // @Transactional
     //  @Scheduled(cron = "0 * * * * * ")
     @Override
     public void AssignTuteurToGroupe() {
@@ -160,14 +162,14 @@ public class GroupeImplementation implements IGroupeService{
                     }
                 }
 
-                if (countEtudiants == 1) {
+                if (countEtudiants == 2) {
                     log.info("ahawaaaaaaaaaaaaaaaaaaaaaaaaaaa " ,countEtudiants);
                     List<User> tuteurs = new ArrayList<>();
                     for (User user : userList) {
                         if (user.getUserRole().getRole().name().equals("Tuteur")  &&
-                                (user.getTypespecialite() == Specialite.Arctic
-                                        //    || user.getTypespecialite() == Specialite.DS ||
-                                        //user.getTypespecialite() == Specialite.BI
+                                (//user.getTypespecialite() == Specialite.Arctic ||
+                                         user.getTypespecialite() == Specialite.DS
+                                        //|| user.getTypespecialite() == Specialite.BI
                                 )) {
                             tuteurs.add(user);
                         }

@@ -24,6 +24,7 @@ public class RendezVousImplementation implements IRendezVousService {
         rendezVous.setGroupe(groupe);
         rendezVous.setEtat("Confirmer");
         rendezVous.setNombre(rendezVous.getNombre() + 1);
+        this.mettreAJourEtatRendezVousExpiré();
         return rendezVousRepository.save(rendezVous);
     }
 
@@ -142,8 +143,7 @@ public class RendezVousImplementation implements IRendezVousService {
 
         for (RendezVous rendezVous : rendezVousList) {
             if (rendezVous.getDate().isBefore(today)) {
-                rendezVous.setEtat("Expiré");
-                rendezVousRepository.save(rendezVous);
+                rendezVousRepository.delete(rendezVous);
             }
         }
     }

@@ -35,12 +35,23 @@ public class ResponsePostImplementation implements IResponsePostService{
 
     @Override
     public ResponsePost updateResponsePost(ResponsePost responsePost) {
-        return null;
+        Long idResponse = responsePost.getIdResponse();
+        ResponsePost responsePost1 = responsPostRepository.findByIdResponse(idResponse);
+        Post post = responsePost1.getPost();
+        User user = responsePost1.getUser_ResponsePost();
+        String nom = responsePost1.getNom();
+        String prenom = responsePost1.getPrenom();
+        responsePost.setNom(nom);
+        responsePost.setUser_ResponsePost(user);
+        responsePost.setPost(post);
+        responsePost.setPrenom(prenom);
+        return responsPostRepository.save(responsePost);
     }
 
     @Override
     public void deleteResponsePost(Long idResponse) {
-
+        ResponsePost responsePost = responsPostRepository.findByIdResponse(idResponse);
+responsPostRepository.delete(responsePost);
     }
 
     @Override

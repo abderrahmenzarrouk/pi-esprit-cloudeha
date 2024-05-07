@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface ResponsPostRepository extends JpaRepository<ResponsePost, Long> {
 
-
+    ResponsePost findByIdResponse(Long idResponse);
     List<ResponsePost> findResponsePostsByPostIdPost(Long idPost);
 }
