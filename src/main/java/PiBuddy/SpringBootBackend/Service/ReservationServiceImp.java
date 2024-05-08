@@ -59,6 +59,11 @@ public class ReservationServiceImp implements IReservationService {
     }
 
     @Override
+    public Reservation getReservationByClasse(Long idClasse) {
+        return reservationRepository.findByClasseIdClasse(idClasse).orElse(null);
+    }
+
+    @Override
     public Reservation updateReservation(Reservation reservation) {
         return reservationRepository.save(reservation);
     }

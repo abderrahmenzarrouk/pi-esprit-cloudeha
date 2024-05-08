@@ -61,4 +61,15 @@ public class ReservationController {
         return ResponseEntity.ok(stats);
     }
 
+
+    @GetMapping("/byClasse/{idClasse}")
+    public ResponseEntity<Reservation> getReservationByClasse(@PathVariable Long idClasse) {
+        Reservation reservation = reservationService.getReservationByClasse(idClasse);
+        if (reservation != null) {
+            return ResponseEntity.ok(reservation);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

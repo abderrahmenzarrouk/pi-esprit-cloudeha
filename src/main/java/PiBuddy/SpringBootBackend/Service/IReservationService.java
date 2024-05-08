@@ -18,6 +18,8 @@ public interface IReservationService {
 
     public void deleteReservationById(Long idReservation);
 
+    public Reservation getReservationByClasse(Long idClasse);
+
 //    public List<Reservation> getReservationsValidees();
 
     public Map<DayOfWeek, Integer> getStatsJoursSemaine();
